@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>点击猫咪4</title>
+    <title>点击猫咪5</title>
     <style>
         .container {
             width: 100%;
@@ -53,6 +53,21 @@
         .cat img {
             width: 70%;
         }
+
+        #admin {
+            width: 100%;
+            padding: 5px 0;
+            background-color: #eee;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button button {
+            display: inline-block;
+            margin: 0 10px;
+            background-color: #eee;
+            padding: 5px 0;
+        }
     </style>
 </head>
 
@@ -60,14 +75,26 @@
     <div class="container">
         <div class="list" id="cat_list">
             <ul></ul>
+            <button id="admin">管理员</button>
         </div>
         <div class="cat" id="cat">
             <p></p>
             <img src="" alt="猫咪">
             <p>点击了<span>0</span>次</p>
         </div>
+        <div class="cat" id="admin_cat">
+            <label for="cat_name">猫名字：</label>
+            <input type="text" id="cat_name">
+            <label for="cat_url">链接：</label>
+            <input type="text" id="cat_url">
+            <div class="button">
+                <button id="cat_cancel">取消</button>
+                <button id="cat_add">新增</button>
+                <button id="cat_confirm">确定</button>
+            </div>
+        </div>
     </div>
-<script src="js/4.js"></script>
+<script src="js/5.js"></script>
 </body>
 
 </html>
