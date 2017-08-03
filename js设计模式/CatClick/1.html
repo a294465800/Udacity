@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点击猫咪1</title>
+</head>
+
+<body>
+    <div>
+        <img id="cat" src="https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426" alt="猫咪">
+    </div>
+    <div>点击了<span id="span">0</span>次</div>
+    <script>
+        window.onload = function () {
+            var cat = document.getElementById('cat')
+            var span = document.getElementById('span')
+            var num = 0
+            cat.addEventListener('click', function () {
+                num++
+                span.innerHTML = num
+            }, true)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点击猫咪3</title>
+    <style>
+        .container {
+            width: 100%;
+            padding-left: 15px;
+            padding-right: 15px;
+            box-sizing: border-box;
+        }
+
+        .container:after {
+            content: '';
+            display: block;
+            clear: both;
+            overflow: hidden;
+        }
+
+        .list {
+            width: 10%;
+            float: left;
+            padding-top: 50px;
+        }
+
+        .list ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .list ul li {
+            background-color: #eee;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .list ul li:hover {
+            background-color: #ccc;
+            cursor: pointer;
+        }
+
+        .cat {
+            width: 90%;
+            float: right;
+            text-align: center;
+        }
+
+        .cat img {
+            width: 70%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="list" id="cat_list">
+            <ul></ul>
+        </div>
+        <div class="cat" id="cat">
+            <p></p>
+            <img src="" alt="猫咪">
+            <p>点击了<span>0</span>次</p>
+        </div>
+    </div>
+<script src="js/4.js"></script>
+</body>
+
+</html>

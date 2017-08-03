@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点击猫咪2</title>
+</head>
+
+<style>
+    .container {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .container:after {
+        content: '';
+        display: block;
+        clear: both;
+        overflow: hidden;
+    }
+    .cat1, .cat2 {
+        width: 50%;
+        float: left;
+    }
+    img {
+        width: 90%;
+    }
+    p,div {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="cat1">
+            <div>
+                <p>猫图一</p>
+                <img id="cat1" src="https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426" alt="猫咪一">
+            </div>
+            <div>点击了<span id="span1">0</span>次</div>
+        </div>
+        <div class="cat2">
+            <div>
+                <p>猫图二</p>
+                <img id="cat2" src="https://lh3.ggpht.com/kixazxoJ2ufl3ACj2I85Xsy-Rfog97BM75ZiLaX02KgeYramAEqlEHqPC3rKqdQj4C1VFnXXryadFs1J9A=s0#w=640&h=496" alt="猫咪二">
+            </div>
+            <div>点击了<span id="span2">0</span>次</div>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            var cat1 = document.getElementById('cat1'),
+                span1 = document.getElementById('span1'),
+                cat2 = document.getElementById('cat2'),
+                span2 = document.getElementById('span2')
+            var num1 = 0, num2 = 0
+            cat1.addEventListener('click', function () {
+                num1++
+                span1.innerHTML = num1
+            }, true)            
+            cat2.addEventListener('click', function () {
+                num1++
+                span2.innerHTML = num1
+            }, true)
+        }
+    </script>
+</body>
+
+</html>

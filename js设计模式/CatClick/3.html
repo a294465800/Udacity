@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点击猫咪3</title>
+    <style>
+        .container {
+            width: 100%;
+            padding-left: 15px;
+            padding-right: 15px;
+            box-sizing: border-box;
+        }
+
+        .container:after {
+            content: '';
+            display: block;
+            clear: both;
+            overflow: hidden;
+        }
+
+        .list {
+            width: 10%;
+            float: left;
+            padding-top: 50px;
+        }
+
+        .list ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .list ul li {
+            background-color: #eee;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .list ul li:hover {
+            background-color: #ccc;
+            cursor: pointer;
+        }
+
+        .cat {
+            width: 90%;
+            float: right;
+            text-align: center;
+        }
+
+        .cat img {
+            width: 70%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="list" id="cat_list">
+            <ul>
+                <li>猫咪1</li>
+                <li>猫咪2</li>
+                <li>猫咪3</li>
+                <li>猫咪4</li>
+                <li>猫咪5</li>
+            </ul>
+        </div>
+        <div class="cat" id="cat">
+            <p>请选择猫咪</p>
+            <img src="" alt="猫咪">
+            <p>点击了<span>0</span>次</p>
+        </div>
+    </div>
+    <script>
+        var img = [
+            'https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426',
+            'https://lh3.ggpht.com/kixazxoJ2ufl3ACj2I85Xsy-Rfog97BM75ZiLaX02KgeYramAEqlEHqPC3rKqdQj4C1VFnXXryadFs1J9A=s0#w=640&h=496',
+            'https://lh5.ggpht.com/LfjkdmOKkGLvCt-VuRlWGjAjXqTBrPjRsokTNKBtCh8IFPRetGaXIpTQGE2e7ZCUaG2azKNkz38KkbM_emA=s0#w=640&h=454',
+            'http://d2r4esoini6f0l.cloudfront.net/images/content/pictures/18214/content_womany_Cute_Cats_cats_33440930_1280_800_1410542878-19856-1650.jpg',
+            'http://www.bz55.com/uploads/allimg/140415/137-140415144315.jpg'
+        ]
+        window.onload = function () {
+            var aCat_list = document.getElementById('cat_list').getElementsByTagName('li'),
+                num = new Array(aCat_list.length),
+                oCat = document.getElementById('cat'),
+                oP = oCat.getElementsByTagName('p')[0],
+                oImg = oCat.getElementsByTagName('img')[0],
+                oSpan = oCat.getElementsByTagName('span')[0]
+
+            //为所有列表添加点击事件
+            for (let i = 0; i < num.length; i++) {
+                num[i] = 0
+                aCat_list[i].addEventListener('click', (function (index) {
+                    return function () {
+                        oSpan.innerHTML = num[index]
+                        oP.innerHTML = '猫咪' + (index + 1)
+                        oImg.src = img[index]
+
+                        //此处用onclick是为了覆盖时间，用addEventListener可以在一个节点上添加多个事件，此处不合适
+                        oCat.onclick = function () {
+                            oSpan.innerHTML = ++num[index]
+                        }
+                    }
+                })(i), true)
+            }
+        }
+    </script>
+</body>
+
+</html>
