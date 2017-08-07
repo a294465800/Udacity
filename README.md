@@ -2,4 +2,4 @@
 > 笔记放在[优达学城笔记](https://github.com/a294465800/my-road/wiki/Udacity)
 
 ### 已完成课程
-1. git与gitHub的使用
+1. [如何使用 Git 和 GitHub（中/英](https://cn.udacity.com/course/how-to-use-git-and-github--ud775)
