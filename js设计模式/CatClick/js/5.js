@@ -2,7 +2,7 @@ window.onload = function () {
 
     //Model
     var data = {
-        current_cat: {},
+        current_cat: null,
         cats: [
             {
                 cat_name: '小猪',
@@ -26,7 +26,7 @@ window.onload = function () {
             },
             {
                 cat_name: '小森',
-                cat_url: 'http://www.bz55.com/uploads/allimg/140415/137-140415144315.jpg',
+                cat_url: 'https://i.ytimg.com/vi/ZGrQ1KDlNlE/maxresdefault.jpg',
                 count: 0
             }
         ],
@@ -36,30 +36,59 @@ window.onload = function () {
         }
     }
 
+    //中间件
     var octopus = {
         init: function () {
-            data.current_cat = data.cats[0]
+            //初始化当前猫咪
+            data.current_cat = 0
             view.init()
         },
 
+        //获取当前视图显示情况
         getView: function () {
             return data.view
         },
 
-        setView: function(view){
+        //设置视图（猫咪？管理员？）
+        setView: function (view) {
             data.view = view
         },
 
+        //获取猫咪列表
         getCats: function () {
             return data.cats
         },
 
+        //新增猫咪
+        addCats: function (newCat) {
+            data.cats.push(newCat)
+        },
+
+        //获取当前猫咪
         getCurrentCat: function () {
-            return data.current_cat
+            return data.cats[data.current_cat]
+        },
+
+        //更换当前猫咪
+        setCurrentCat: function (index) {
+            data.current_cat = index
+        },
+
+        //统计当前猫咪点击次数
+        setCurrentCatCount: function (count) {
+            data.cats[data.current_cat].count = count
+        },
+
+        //修改当前猫咪数据（名字、地址）
+        setCurrentCatData: function (cat_name, cat_url) {
+            data.cats[data.current_cat].cat_name = cat_name
+            data.cats[data.current_cat].cat_url = cat_url
         }
     }
 
+    //视图
     var view = {
+        //视图初始化，显示第一只猫视图
         init: function () {
             this.cat = document.getElementById('cat')
             this.cat_html = this.cat.innerHTML
@@ -72,7 +101,8 @@ window.onload = function () {
             this.render()
         },
 
-        showAdmin: function(){
+        //显示管理员视图
+        showAdmin: function () {
             var show = {
                 cat: false,
                 admin_cat: true
@@ -81,7 +111,8 @@ window.onload = function () {
             view.render()
         },
 
-        showCat: function(){
+        //显示猫视图
+        showCat: function () {
             var show = {
                 cat: true,
                 admin_cat: false
@@ -90,15 +121,24 @@ window.onload = function () {
             view.render()
         },
 
+        //创建左侧猫列表
         createCatList: function () {
             var cats = octopus.getCats()
+            this.cat_list.innerHTML = ''
             for (var i = 0; i < cats.length; i++) {
                 var li = document.createElement('li')
                 li.innerHTML = cats[i].cat_name
+                li.onclick = (function (index) {
+                    return function () {
+                        octopus.setCurrentCat(index)
+                        view.render()
+                    }
+                })(i)
                 this.cat_list.appendChild(li)
             }
         },
 
+        //创建猫图片视图（标题、图片、点击次数）
         creatCatView: function (bool) {
             if (!bool) {
                 this.cat.innerHTML = ''
@@ -109,12 +149,17 @@ window.onload = function () {
                 oImg = this.cat.getElementsByTagName('img')[0],
                 oSpan = this.cat.getElementsByTagName('span')[0],
                 current_cat = octopus.getCurrentCat()
-                
+
             oP.innerHTML = current_cat.cat_name
             oImg.src = current_cat.cat_url
             oSpan.innerHTML = current_cat.count
+            oImg.onclick = function () {
+                octopus.setCurrentCatCount(++current_cat.count)
+                view.render()
+            }
         },
 
+        //创建管理员视图
         creatAdminCatView: function (bool) {
             if (!bool) {
                 this.admin_cat.innerHTML = ''
@@ -131,11 +176,41 @@ window.onload = function () {
 
             cat_name.value = current_cat.cat_name
             cat_url.value = current_cat.cat_url
+
+            //管理员取消
             cat_cancel.addEventListener('click', function () {
+                view.showCat()
+            }, true)
+
+            //管理员确认修改猫咪
+            cat_confirm.addEventListener('click', function () {
+                if (!cat_name.value || !cat_url.value) {
+                    alert('信息不能为空！')
+                    return false
+                }
+                octopus.setCurrentCatData(cat_name.value, cat_url.value)
+                view.createCatList()
+                view.showCat()
+            }, true)
+
+            //管理员新增猫咪
+            cat_add.addEventListener('click', function () {
+                if (!cat_name.value || !cat_url.value) {
+                    alert('信息不能为空！')
+                    return false
+                }
+                var newCat = {
+                    cat_name: cat_name.value,
+                    cat_url: cat_url.value,
+                    count: 0
+                }
+                octopus.addCats(newCat)
+                view.createCatList()
                 view.showCat()
             }, true)
         },
 
+        //渲染
         render: function () {
             var view = octopus.getView()
             this.creatCatView(view.cat)

@@ -66,7 +66,31 @@
             display: inline-block;
             margin: 0 10px;
             background-color: #eee;
-            padding: 5px 0;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .button button:focus {
+            outline: none;
+        }
+        #admin_cat {
+            padding-top: 50px;
+            padding-left: 20%;
+            padding-right: 20%;
+            box-sizing: border-box;
+        }
+        .form-group {
+            width: 100%;
+            margin: 10px 0 30px;
+        }
+        .form-group label,.form-group input {
+            width: 100%;
+            display: block;
+            text-align: left;
+        }
+        .form-group input {
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -83,10 +107,14 @@
             <p>点击了<span>0</span>次</p>
         </div>
         <div class="cat" id="admin_cat">
-            <label for="cat_name">猫名字：</label>
-            <input type="text" id="cat_name">
-            <label for="cat_url">链接：</label>
-            <input type="text" id="cat_url">
+            <div class="form-group">
+                <label for="cat_name">猫名字：</label>
+                <input type="text" id="cat_name">
+            </div>
+            <div class="form-group">
+                <label for="cat_url">链接：</label>
+                <input type="text" id="cat_url">
+            </div>
             <div class="button">
                 <button id="cat_cancel">取消</button>
                 <button id="cat_add">新增</button>
