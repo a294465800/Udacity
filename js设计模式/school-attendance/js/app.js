@@ -3,6 +3,8 @@
  * attendance record if one is not found
  * within localStorage.
  */
+
+ //若没有缓存，新建，里面的打卡记录是随机生成的
 (function() {
     if (!localStorage.attendance) {
         console.log('Creating attendance records...');
@@ -33,7 +35,7 @@ $(function() {
         $allMissed = $('tbody .missed-col'),
         $allCheckboxes = $('tbody input');
 
-    // Count a student's missed days
+    // Count a student's missed days，计算没有打卡的天数
     function countMissing() {
         $allMissed.each(function() {
             var studentRow = $(this).parent('tr'),
@@ -50,7 +52,7 @@ $(function() {
         });
     }
 
-    // Check boxes, based on attendace records
+    // Check boxes, based on attendace records，根据随机生成的布尔值，修改checkbox的checked
     $.each(attendance, function(name, days) {
         var studentRow = $('tbody .name-col:contains("' + name + '")').parent('tr'),
             dayChecks = $(studentRow).children('.attend-col').children('input');
@@ -60,7 +62,7 @@ $(function() {
         });
     });
 
-    // When a checkbox is clicked, update localStorage
+    // When a checkbox is clicked, update localStorage，当点击checkbox时，更新缓存
     $allCheckboxes.on('click', function() {
         var studentRows = $('tbody .student'),
             newAttendance = {};
@@ -76,6 +78,7 @@ $(function() {
             });
         });
 
+        //更新打卡次数
         countMissing();
         localStorage.attendance = JSON.stringify(newAttendance);
     });
