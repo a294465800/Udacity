@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>手动实现双向绑定</title>
+</head>
+
+<body id="app">
+  <div>
+    请输入：<input type="text" id="input">
+  </div>
+  <div id="result">结果是：{{input}}</div>
+  <script>
+    window.onload = function () {
+
+      //储存初次页面结构
+      var HTMLBody = document.getElementById('app').innerHTML
+
+      //所有数据
+      var data = {
+        input: '1'
+      }
+
+      //数据双向绑定函数
+      var dataFUnc = {
+        getData: function (key, nowData) {
+          if (nowData) {
+            if (nowData === data[key]) {
+              console.log(1)
+              return data[key]
+            } else {
+              console.log(2)
+              data[key] = nowData
+              searchData.eachRender[key]()
+              return nowData
+            }
+          } else {
+            return data[key]
+          }
+        }
+      }
+
+      //初始化页面数据
+      var searchData = {
+        init: function () {
+          this.loopData()
+        },
+
+        //页面初始化结束后，替换HTML中的参数
+        loopData: function () {
+          var app = document.getElementById('app')
+          Object.keys(data).forEach(function (element) {
+            searchData.eachRender[element] = function () {
+              var re = new RegExp('{{' + element + '}}', 'g')
+              app.innerHTML = HTMLBody.replace(re, dataFUnc.getData(element))
+              event[element + 'Change']()
+            }
+            searchData.eachRender[element]()
+          });
+        },
+
+        //存放每个数据渲染的对应函数
+        eachRender: {}
+      }
+
+      //监听事件
+      var event = {
+        init: function () {
+        },
+
+        //监听输入
+        inputChange: function () {
+          var oInput = document.getElementById('input')
+          oInput.focus()
+          oInput.value = data.input || ''
+          oInput.oninput = function (e) {
+            dataFUnc.getData('input', e.target.value)
+          }
+        }
+      }
+
+      //启动
+      var start = {
+        init: function () {
+          searchData.init()
+        }
+      }
+
+      start.init()
+    }
+  </script>
+</body>
+
+</html>
